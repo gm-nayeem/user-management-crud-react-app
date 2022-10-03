@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+/* my style */
+.card {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #282c34;
+  color: white;
+}
+.btn {
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  width: 5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+section {
+  display: grid;
+}
+
+@media screen and (min-width: 600px) {
+  section {
+    grid-template-columns: auto auto;
+  }
+}
+@media screen and (min-width: 992) {
+  section {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+

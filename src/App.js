@@ -10,11 +10,10 @@ function App() {
   const [error, setErrors] = useState("")
 
   const getAllUsers = () => {
-
     fetch(URL)
       .then(res => {
         if (!res.ok) {
-          throw new Error("Data not found")
+          throw new Error("User Not Found")
         }
         return res.json()
       })
@@ -33,6 +32,22 @@ function App() {
     getAllUsers()
   }, [])
 
+  // delete user
+  const handleDelete = (id) => {
+    fetch(URL + `/${id}`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("User Not Delete")
+        }
+        getAllUsers()
+      })
+      .catch(error => {
+        setErrors(error)
+      })
+  }
+
   return (
     <div className="App">
       <h1>User Management App</h1>
@@ -47,7 +62,7 @@ function App() {
               <p>{username}</p>
               <p>{email}</p>
               <button className='btn'>Edit</button>
-              <button className='btn'>Delete</button>
+              <button className='btn' onClick={() => handleDelete(id)}>Delete</button>
             </article>
           )
         })}

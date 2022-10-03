@@ -10,6 +10,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setErrors] = useState("")
 
+  // update
+  const [selectedUser, setSelectedUser] = useState({
+    username: '',
+    email: ''
+  })
+  const [updateFlag, setUpdateFlag] = useState(false)
+  const [selectedUserId, setSelectedUserId] = useState("")
+
   const getAllUsers = () => {
     fetch(URL)
       .then(res => {
@@ -51,7 +59,6 @@ function App() {
 
   // create user
   const addUser = (user) => {
-    console.log(user)
     fetch(URL, {
       method: 'POST',
       headers: {
@@ -61,7 +68,7 @@ function App() {
       body: JSON.stringify(user)
     })
       .then(res => {
-        if (res.ok) {
+        if (res.status == 201) {
           getAllUsers()
         } else {
           throw new Error("User Not Created")
@@ -73,6 +80,36 @@ function App() {
   }
 
   // update user
+  const handleEdit = (id) => {
+    setSelectedUserId(id)
+    setUpdateFlag(true)
+    const filteredData = users.filter(user => user.id == id)
+    setSelectedUser({
+      username: filteredData[0].username,
+      email: filteredData[0].email
+    })
+  }
+
+  const handleUpdate = (user) => {
+    fetch(URL + `/${selectedUserId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      
+      body: JSON.stringify(user)
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("User Not Updated")
+        } 
+        getAllUsers()
+        setUpdateFlag(false)
+      })
+      .catch(error => {
+        setErrors(error)
+      });
+  }
 
   return (
     <div className="App">
@@ -80,7 +117,12 @@ function App() {
       {isLoading && <h2>Loading...</h2>}
       {error && <h2>{error}</h2>}
 
-      <UserForm btnText="Add User" handleSubmitData={addUser}/>
+      {
+        updateFlag ? 
+        <UserForm btnText="Update User" selectedUser={selectedUser} handleSubmitData={handleUpdate}/> 
+        :
+        <UserForm btnText="Add User" handleSubmitData={addUser}/>
+      }
 
       <section>
         {users && users.map((user) => {
@@ -89,7 +131,7 @@ function App() {
             <article key={id} className="card">
               <p>{username}</p>
               <p>{email}</p>
-              <button className='btn'>Edit</button>
+              <button className='btn' onClick={() => handleEdit(id)}>Edit</button>
               <button className='btn' onClick={() => handleDelete(id)}>Delete</button>
             </article>
           )

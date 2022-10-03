@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FetchApi = (props) => {
+const GetApi = (props) => {
     const {setUsers, setIsLoading, setErrors} = props
 
     const getAllUsers = () => {
@@ -30,6 +30,6 @@ const FetchApi = (props) => {
   
 }
 
-export default FetchApi
+export default GetApi
 
 

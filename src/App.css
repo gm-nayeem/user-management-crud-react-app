@@ -51,9 +51,14 @@
   cursor: pointer;
   transition: all 0.3s;
 }
-
 .btn:hover {
   background-color: orange;
+}
+
+input {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  width: 20rem;
 }
 
 section {
@@ -65,7 +70,7 @@ section {
     grid-template-columns: auto auto;
   }
 }
-@media screen and (min-width: 992) {
+@media screen and (min-width: 992px) {
   section {
     grid-template-columns: auto auto auto;
   }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
 import './App.css';
-import GetUsers from './api/getUsers';
 
 const URL = "https://rest-api-without-db.herokuapp.com/users";
 
@@ -11,30 +9,29 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setErrors] = useState("")
 
-  // const getAllUsers = () => {
+  const getAllUsers = () => {
 
-  //   fetch(URL)
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         throw new Error("Data not found")
-  //       }
-  //       return res.json()
-  //     })
-  //     .then(data => {
-  //       setUsers(data.users)
-  //     })
-  //     .catch(error => {
-  //       setErrors(error)
-  //     })
-  //     .finally(() => {
-  //       setIsLoading(false)
-  //     })
-  // }
+    fetch(URL)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Data not found")
+        }
+        return res.json()
+      })
+      .then(data => {
+        setUsers(data.users)
+      })
+      .catch(error => {
+        setErrors(error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
 
   useEffect(() => {
-    <GetUsers URL={URL} setUsers={setUsers} setIsLoading={setIsLoading} setErrors={setErrors}/>
+    getAllUsers()
   }, [])
-
 
   return (
     <div className="App">

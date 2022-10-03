@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import './App.css';
-import GetApi from './api/getApi';
+import GetUsers from './api/getUsers';
 
 const URL = "https://rest-api-without-db.herokuapp.com/users";
 
@@ -32,7 +32,7 @@ function App() {
   // }
 
   useEffect(() => {
-    <GetApi setUsers={setUsers} isLoading={isLoading} error={error}/>
+    <GetUsers URL={URL} setUsers={setUsers} setIsLoading={setIsLoading} setErrors={setErrors}/>
   }, [])
 
 

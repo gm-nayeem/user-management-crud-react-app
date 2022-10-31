@@ -68,7 +68,7 @@ function App() {
       body: JSON.stringify(user)
     })
       .then(res => {
-        if (res.status == 201) {
+        if (res.status === 201) {
           getAllUsers()
         } else {
           throw new Error("User Not Created")
@@ -83,7 +83,7 @@ function App() {
   const handleEdit = (id) => {
     setSelectedUserId(id)
     setUpdateFlag(true)
-    const filteredData = users.filter(user => user.id == id)
+    const filteredData = users.filter(user => user.id === id)
     setSelectedUser({
       username: filteredData[0].username,
       email: filteredData[0].email

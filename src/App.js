@@ -10,7 +10,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setErrors] = useState("")
 
-  // update
+  // update state
   const [selectedUser, setSelectedUser] = useState({
     username: '',
     email: ''
@@ -18,6 +18,7 @@ function App() {
   const [updateFlag, setUpdateFlag] = useState(false)
   const [selectedUserId, setSelectedUserId] = useState("")
 
+  // get user
   const getAllUsers = () => {
     fetch(URL)
       .then(res => {
